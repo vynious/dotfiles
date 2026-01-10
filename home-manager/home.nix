@@ -117,6 +117,7 @@
       idea = "open -na \"IntelliJ IDEA.app\" --args";
       goland = "open -na \"GoLand.app\" --args";
 
+      ga = "git add .";
       gp = "git push";
       gf = "git fetch --all --prune";
       gl = "git pull --rebase --autostash";
