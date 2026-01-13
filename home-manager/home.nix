@@ -6,7 +6,6 @@
   home.username = "shawntyw";
   home.homeDirectory = "/Users/shawntyw";
 
-  # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
   #
@@ -57,6 +56,8 @@
     btop
     lazygit
     yazi
+
+    go
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -92,6 +93,8 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+    GOPATH = "${config.home.homeDirectory}/go";
+    GOBIN = "${config.home.homeDirectory}/go/bin";
   };
 
   programs.zsh = {
