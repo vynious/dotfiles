@@ -1,10 +1,22 @@
 { config, pkgs, ... }:
 
+let
+  envUser = builtins.getEnv "USER";
+  envHome = builtins.getEnv "HOME";
+in
+
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "shawntyw";
-  home.homeDirectory = "/Users/shawntyw";
+  assertions = [
+    {
+      assertion = envUser != "" && envHome != "";
+      message = "USER/HOME are empty. Run Home Manager with --impure.";
+    }
+  ];
+
+  home.username = envUser;
+  home.homeDirectory = envHome;
 
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -13,7 +25,6 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "25.11"; # Please read the comment before changing.
-
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
@@ -50,8 +61,6 @@
     opencode # Terminal AI coding agent
     openssl # TLS/SSL toolkit
     procs # Modern replacement for ps
-
-    zed-editor # Zed code editor
 
     git # Distributed version control
     git-lfs # Git support for large files
@@ -123,6 +132,10 @@
     GOBIN = "${config.home.homeDirectory}/go/bin";
   };
 
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -155,16 +168,23 @@
       gco = "git checkout";
       gcb = "git checkout -b";
       glog = "git log --oneline --graph --decorate --all";
-
       cat = "bat";
     };
 
-    initExtra = ''
+    initContent = ''
       setopt HIST_REDUCE_BLANKS
 
       setopt AUTO_CD
       setopt AUTO_PUSHD
       setopt PUSHD_IGNORE_DUPS
+      
+      if command -v gpgconf >/dev/null 2>&1 && [ -d "$HOME/.gnupg" ]; then
+        unset SSH_AGENT_PID
+        if [ "''${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+          export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+        fi
+        gpgconf --launch gpg-agent
+      fi
     '';
   };
 

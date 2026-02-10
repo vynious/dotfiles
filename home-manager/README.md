@@ -8,13 +8,13 @@ From repo root:
 
 ```bash
 cd home-manager
-nix run github:nix-community/home-manager -- switch --flake .
+nix run github:nix-community/home-manager -- switch --impure --flake .#default
 ```
 
 After first run, you can use:
 
 ```bash
-home-manager switch --flake .
+home-manager switch --impure --flake .#default
 ```
 
 ## When you change config
@@ -23,7 +23,7 @@ home-manager switch --flake .
 2. Apply changes:
 
 ```bash
-home-manager switch --flake .
+home-manager switch --impure --flake .#default
 ```
 
 ## Update dependencies
@@ -31,14 +31,14 @@ home-manager switch --flake .
 ```bash
 cd home-manager
 nix flake update
-home-manager switch --flake .
+home-manager switch --impure --flake .#default
 ```
 
 ## Add app config files (AeroSpace, Zed, etc.)
 
 1. Put files in this repo (example: `../aerospace/.aerospace.toml`, `../zed/settings.json`).
 2. Map them in `home.nix` under `home.file`.
-3. Run `home-manager switch --flake .`.
+3. Run `home-manager switch --impure --flake .#default`.
 
 Example:
 
@@ -53,4 +53,4 @@ home.file = {
 Note: In `home.file`, target paths are home-relative (no `~` prefix).
 
 If you add multiple home configurations in `flake.nix`, select one explicitly with:
-`home-manager switch --flake .#shawntyw`
+`home-manager switch --impure --flake .#your-config-name`
