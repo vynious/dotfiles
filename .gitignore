@@ -5,3 +5,5 @@ zed/themes
 nvim/lazy-lock.json
 nvim/.luarc.json
 nvim/.neoconf.json
+
+home-manager/result
