@@ -3,6 +3,8 @@
 let
   envUser = builtins.getEnv "USER";
   envHome = builtins.getEnv "HOME";
+  envDotfiles = builtins.getEnv "DOTFILES_DIR";
+  dotfilesDir = if envDotfiles != "" then envDotfiles else "${envHome}/dotfiles";
 in
 
 {
@@ -87,6 +89,10 @@ in
     yazi # Terminal file manager
 
     go # Go toolchain and build tools
+
+    rustup # Rust toolchain manager (includes rust-analyzer binary)
+    cargo-watch # Re-run Cargo commands on source changes
+    cargo-edit # Add/remove/update Cargo dependencies from the CLI
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -102,12 +108,21 @@ in
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".aerospace.toml".source = ../aerospace/.aerospace.toml;
+    ".aerospace.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/aerospace/.aerospace.toml";
+      force = true;
+    };
 
-    ".config/zed/settings.json".source = ../zed/settings.json;
-    ".config/zed/keymap.json".source = ../zed/keymap.json;
+    # Keep Zed writable by linking the whole config dir out of the Nix store.
+    ".config/zed" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/zed";
+      force = true;
+    };
 
-    ".config/starship.toml".source = ../starship/starship.toml;
+    ".config/starship.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/starship/starship.toml";
+      force = true;
+    };
   };
 
   # Home Manager can also manage your environment variables through
@@ -177,7 +192,7 @@ in
       setopt AUTO_CD
       setopt AUTO_PUSHD
       setopt PUSHD_IGNORE_DUPS
-      
+
       if command -v gpgconf >/dev/null 2>&1 && [ -d "$HOME/.gnupg" ]; then
         unset SSH_AGENT_PID
         if [ "''${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then

@@ -69,8 +69,8 @@
     "buffer_font_size": 14,
     "theme": {
         "mode": "dark",
-        "light": "Melange Light",
-        "dark": "Gruvbox Baby",
+        "light": "One Light",
+        "dark": "One Dark",
     },
     "edit_predictions": {
         "mode": "subtle",

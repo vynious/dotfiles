@@ -35,22 +35,25 @@ home-manager switch --impure --flake .#default
 ```
 
 ## Add app config files (AeroSpace, Zed, etc.)
-
-1. Put files in this repo (example: `../aerospace/.aerospace.toml`, `../zed/settings.json`).
+`1. Put files in this repo (example: `../aerospace/.aerospace.toml`, `../zed/`).
 2. Map them in `home.nix` under `home.file`.
 3. Run `home-manager switch --impure --flake .#default`.
 
 Example:
 
 ```nix
+let
+  dotfilesDir = "${builtins.getEnv \"HOME\"}/dotfiles";
+in
 home.file = {
   ".aerospace.toml".source = ../aerospace/.aerospace.toml;
-  ".config/zed/settings.json".source = ../zed/settings.json;
-  ".config/zed/keymap.json".source = ../zed/keymap.json;
+  ".config/zed".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/zed";
 };
 ```
 
 Note: In `home.file`, target paths are home-relative (no `~` prefix).
+For apps that rewrite configs (like Zed), prefer `mkOutOfStoreSymlink` so files remain writable.
+If your dotfiles are not in `~/dotfiles`, set `DOTFILES_DIR` before running `home-manager switch`.
 
 If you add multiple home configurations in `flake.nix`, select one explicitly with:
 `home-manager switch --impure --flake .#your-config-name`
