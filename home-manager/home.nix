@@ -33,31 +33,51 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    git
-    git-lfs
-    delta
+    automake # Generate GNU-style Makefile.in files
+    python3Packages.pycparser # Pure Python C parser
+    python3Packages.cffi # C FFI bindings for Python
+    python3Packages.cryptography # Python cryptography primitives
+    openjdk # Java Development Kit
+    bfg-repo-cleaner # Remove large or sensitive data from Git history
+    erlang # Erlang runtime and tooling
+    gcc # GNU compiler collection
+    libpq # PostgreSQL client libraries and tools
+    lua # Lightweight scripting language
+    minikube # Run Kubernetes locally
+    nodejs # JavaScript runtime
+    neofetch # System information display tool
+    fnm # Fast Node.js version manager
+    opencode # Terminal AI coding agent
+    openssl # TLS/SSL toolkit
+    procs # Modern replacement for ps
 
-    coreutils
-    curl
-    wget
+    zed-editor # Zed code editor
 
-    jq
-    yq
+    git # Distributed version control
+    git-lfs # Git support for large files
+    delta # Syntax-highlighted Git diff pager
 
-    fzf
-    fd
-    eza
-    bat
+    coreutils # GNU core command-line utilities
+    curl # Transfer data over URLs
+    wget # Non-interactive network downloader
 
-    tmux
-    zoxide
-    starship
+    jq # Command-line JSON processor
+    yq # Command-line YAML/JSON processor
 
-    btop
-    lazygit
-    yazi
+    fzf # Fuzzy finder for files/commands/history
+    fd # Fast user-friendly find alternative
+    eza # Modern replacement for ls
+    bat # Cat clone with syntax highlighting
 
-    go
+    tmux # Terminal multiplexer
+    zoxide # Smarter cd based on frecency
+    starship # Cross-shell prompt
+
+    btop # Interactive system resource monitor
+    lazygit # Terminal UI for Git workflows
+    yazi # Terminal file manager
+
+    go # Go toolchain and build tools
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -73,6 +93,12 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+    ".aerospace.toml".source = ../aerospace/.aerospace.toml;
+
+    ".config/zed/settings.json".source = ../zed/settings.json;
+    ".config/zed/keymap.json".source = ../zed/keymap.json;
+
+    ".config/starship.toml".source = ../starship/starship.toml;
   };
 
   # Home Manager can also manage your environment variables through

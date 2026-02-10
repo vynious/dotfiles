@@ -1,0 +1,164 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# ------------------------------------------------------------------------------
+# GLOBAL SETTINGS
+# ------------------------------------------------------------------------------
+add_newline = true
+command_timeout = 1000
+
+# ------------------------------------------------------------------------------
+# LAYOUT: minimal, single line + arrow
+# ------------------------------------------------------------------------------
+format = """
+$username$hostname$directory$git_branch$git_state$git_status$nodejs$python$rust$docker_context\
+$fill\
+$status$cmd_duration$time
+$character"""
+
+# ------------------------------------------------------------------------------
+# CORE: USER + HOST
+# ------------------------------------------------------------------------------
+
+[username]
+show_always = true
+# warm, high-contrast user
+style_user = "bold fg:#EBCB8B"
+style_root = "bold fg:#BF616A"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = false
+# cool accent for host
+style = "bold fg:#88C0D0"
+format = "[@$hostname]($style) "
+
+# ------------------------------------------------------------------------------
+# DIRECTORY (short, relative, strong accent)
+# ------------------------------------------------------------------------------
+
+[directory]
+style = "bold fg:#81A1C1"
+read_only = " "
+read_only_style = "fg:#EBCB8B"
+
+truncate_to_repo = true         # relative to repo root
+truncation_length = 3           # keep last 3 components
+home_symbol = "~"
+fish_style_pwd_dir_length = 0   # full component names
+
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+# ------------------------------------------------------------------------------
+# GIT (compact, no background)
+# ------------------------------------------------------------------------------
+
+[git_branch]
+symbol = " "
+style = "fg:#A3BE8C"
+format = "on [$symbol$branch]($style)"
+
+[git_state]
+# REBASING / MERGING / BISECTING
+style = "fg:#B48EAD"
+format = " [$state( $progress_current/$progress_total)]($style)"
+
+[git_status]
+style = "fg:#BF616A"
+format = " [$all_status$ahead_behind]($style)"
+
+conflicted = " "
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕${ahead_count}/${behind_count}"
+untracked = " "
+stashed = " "
+modified = " "
+staged = " "
+renamed = " "
+deleted = " "
+
+# ------------------------------------------------------------------------------
+# TOOLCHAIN / LANGUAGES (only when active)
+# ------------------------------------------------------------------------------
+
+[nodejs]
+symbol = " "
+style = "fg:#A3BE8C"
+format = " via [$symbol($version)]($style)"
+
+[python]
+symbol = "🐍 "
+style = "fg:#EBCB8B"
+detect_folders = ["venv", ".venv", "env", ".env"]
+format = " via [$symbol($version)]($style)"
+
+[rust]
+symbol = "🦀 "
+style = "fg:#D08770"
+format = " via [$symbol($version)]($style)"
+
+[docker_context]
+symbol = " "
+style = "fg:#88C0D0"
+only_with_files = true
+format = " on [$symbol$context]($style)"
+
+# ------------------------------------------------------------------------------
+# RIGHT SIDE: status, duration, time
+# ------------------------------------------------------------------------------
+
+[fill]
+symbol = " "   # pushes the items after this to the right
+
+[status]
+disabled = false
+style = "bold fg:#BF616A"
+symbol = "✘ "
+success_symbol = ""
+sigint_symbol = "⏹ "
+map_symbol = true
+format = "[$symbol$status]($style) "
+
+[cmd_duration]
+min_time = 2_000
+style = "fg:#EBCB8B"
+format = "took [$duration]($style) "
+
+[time]
+disabled = false
+time_format = "%R"
+style = "fg:#4C566A"
+format = "[$time]($style)"
+
+# ------------------------------------------------------------------------------
+# INPUT ARROW
+# ------------------------------------------------------------------------------
+
+[character]
+success_symbol = "[╰─λ](bold fg:#81A1C1) "
+error_symbol   = "[╰─x](bold fg:#BF616A) "
+vimcmd_symbol          = "[╰─ν](bold fg:#A3BE8C) "
+vimcmd_replace_symbol  = "[╰─ρ](bold fg:#D08770) "
+vimcmd_visual_symbol   = "[╰─σ](bold fg:#88C0D0) "
+
+# ------------------------------------------------------------------------------
+# MISC MODULES
+# ------------------------------------------------------------------------------
+
+[aws]
+disabled = true
+
+[package]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[terraform]
+disabled = true
+
+[container]
+disabled = true
