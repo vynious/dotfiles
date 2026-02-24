@@ -63,12 +63,13 @@ in
     opencode # Terminal AI coding agent
     openssl # TLS/SSL toolkit
     procs # Modern replacement for ps
+    cmake
 
     git # Distributed version control
     git-lfs # Git support for large files
     delta # Syntax-highlighted Git diff pager
 
-    coreutils # GNU core command-line utilities
+    coreutils # GNU core command-line utilitie
     curl # Transfer data over URLs
     wget # Non-interactive network downloader
 
@@ -83,6 +84,8 @@ in
     tmux # Terminal multiplexer
     zoxide # Smarter cd based on frecency
     starship # Cross-shell prompt
+    helix
+    neovim
 
     btop # Interactive system resource monitor
     lazygit # Terminal UI for Git workflows
