@@ -96,6 +96,7 @@ in
     rustup # Rust toolchain manager (includes rust-analyzer binary)
     cargo-watch # Re-run Cargo commands on source changes
     cargo-edit # Add/remove/update Cargo dependencies from the CLI
+    nil
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
