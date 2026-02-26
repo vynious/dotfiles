@@ -124,6 +124,11 @@ in
       force = true;
     };
 
+    ".config/nvim" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/nvim";
+      force = true;
+    };
+
     ".config/starship.toml" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/starship/starship.toml";
       force = true;

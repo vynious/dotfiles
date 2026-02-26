@@ -1,0 +1,7 @@
+zed/prompts
+zed/conversations
+zed/themes
+
+nvim/lazy-lock.json
+nvim/.luarc.json
+nvim/.neoconf.json
