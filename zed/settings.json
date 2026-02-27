@@ -8,6 +8,9 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
     "vim_mode": true,
+    "vim": {
+        "toggle_relative_line_numbers": true,
+    },
     "disable_ai": false,
     "terminal": {
         "font_size": 12.0,
