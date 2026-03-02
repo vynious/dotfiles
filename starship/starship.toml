@@ -3,31 +3,30 @@
 # ------------------------------------------------------------------------------
 # GLOBAL SETTINGS
 # ------------------------------------------------------------------------------
-add_newline = true
-command_timeout = 1000
+add_newline = false
+command_timeout = 2000
 
 # ------------------------------------------------------------------------------
 # LAYOUT: minimal, single line + arrow
 # ------------------------------------------------------------------------------
 format = """
-$username$hostname$directory$git_branch$git_state$git_status$nodejs$python$rust$docker_context\
-$fill\
-$status$cmd_duration$time
+$username$hostname$directory$git_branch$git_state$git_status$nix_shell$nodejs$python$rust$docker_context
 $character"""
+right_format = "$status$cmd_duration$time"
 
 # ------------------------------------------------------------------------------
 # CORE: USER + HOST
 # ------------------------------------------------------------------------------
 
 [username]
-show_always = true
+show_always = false
 # warm, high-contrast user
 style_user = "bold fg:#EBCB8B"
 style_root = "bold fg:#BF616A"
 format = "[$user]($style)"
 
 [hostname]
-ssh_only = false
+ssh_only = true
 # cool accent for host
 style = "bold fg:#88C0D0"
 format = "[@$hostname]($style) "
@@ -56,6 +55,8 @@ format = "[$path]($style)[$read_only]($read_only_style) "
 symbol = " "
 style = "fg:#A3BE8C"
 format = "on [$symbol$branch]($style)"
+truncation_length = 24
+truncation_symbol = "…"
 
 [git_state]
 # REBASING / MERGING / BISECTING
@@ -86,14 +87,20 @@ symbol = " "
 style = "fg:#A3BE8C"
 format = " via [$symbol($version)]($style)"
 
+[nix_shell]
+disabled = false
+symbol = " "
+style = "fg:#88C0D0"
+format = " via [$symbol$state( $name)]($style)"
+
 [python]
-symbol = "🐍 "
+symbol = " "
 style = "fg:#EBCB8B"
 detect_folders = ["venv", ".venv", "env", ".env"]
 format = " via [$symbol($version)]($style)"
 
 [rust]
-symbol = "🦀 "
+symbol = " "
 style = "fg:#D08770"
 format = " via [$symbol($version)]($style)"
 
@@ -106,9 +113,6 @@ format = " on [$symbol$context]($style)"
 # ------------------------------------------------------------------------------
 # RIGHT SIDE: status, duration, time
 # ------------------------------------------------------------------------------
-
-[fill]
-symbol = " "   # pushes the items after this to the right
 
 [status]
 disabled = false

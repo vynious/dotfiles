@@ -13,6 +13,7 @@
     },
     "disable_ai": false,
     "terminal": {
+        "font_family": "Hack Nerd Font Mono",
         "font_size": 12.0,
         "detect_venv": {
             "on": {
@@ -21,14 +22,6 @@
             },
         },
     },
-    /* Duplicated key auto-commented: "agent": {
-        "default_model": {
-            "provider": "copilot_chat",
-            "model": "gemini-3-pro-preview",
-        },
-        "always_allow_tool_actions": false,
-        "model_parameters": [],
-    }, */
     "minimap": {
         "show": "never",
     },
@@ -40,7 +33,6 @@
     "file_types": {
         "html": ["*.ejs"],
     },
-    "icon_theme": "Colored Zed Icons Theme Dark",
     "collaboration_panel": {
         "dock": "right",
     },
@@ -68,8 +60,7 @@
     "auto_indent": true,
     "base_keymap": "VSCode",
     "ui_font_size": 15,
-    // "ui_font_family": "JetBrains Mono",
-    "buffer_font_family": "JetBrains Mono",
+    "buffer_font_family": "Hack Nerd Font Mono",
     "buffer_font_size": 14,
     "theme": {
         "mode": "dark",
@@ -118,10 +109,5 @@
         // Panel theme setting
         // "pane.focused_border": "#00000000",
         // "border": "#00000000"
-    },
-    "agent_servers": {
-        "gemini": {
-            "args": ["-m", "3 Pro"],
-        },
     },
 }

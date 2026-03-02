@@ -68,6 +68,7 @@ in
     git # Distributed version control
     git-lfs # Git support for large files
     delta # Syntax-highlighted Git diff pager
+    jujutsu # Git-compatible VCS (jj)
 
     coreutils # GNU core command-line utilitie
     curl # Transfer data over URLs
