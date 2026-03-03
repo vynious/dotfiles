@@ -2,8 +2,8 @@
 cask "aerospace"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
-cask "font-hack-nerd-font"
-cask "font-monaspace"
+cask "font-monaspice-nerd-font"
+cask "font-0xproto-nerd-font"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
 # Control your tools with a few keystrokes

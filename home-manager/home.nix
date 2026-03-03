@@ -69,7 +69,8 @@ in
     git-lfs # Git support for large files
     delta # Syntax-highlighted Git diff pager
     jujutsu # Git-compatible VCS (jj)
-
+    jjui
+    
     coreutils # GNU core command-line utilitie
     curl # Transfer data over URLs
     wget # Non-interactive network downloader
@@ -127,6 +128,11 @@ in
 
     ".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/nvim";
+      force = true;
+    };
+
+    ".config/kitty" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/kitty";
       force = true;
     };
 

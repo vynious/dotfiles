@@ -13,7 +13,7 @@
     },
     "disable_ai": false,
     "terminal": {
-        "font_family": "Hack Nerd Font Mono",
+        "font_family": "0xProto Nerd Font Mono",
         "font_size": 12.0,
         "detect_venv": {
             "on": {
@@ -60,7 +60,7 @@
     "auto_indent": true,
     "base_keymap": "VSCode",
     "ui_font_size": 15,
-    "buffer_font_family": "Hack Nerd Font Mono",
+    "buffer_font_family": "Monaspace Nerd Font",
     "buffer_font_size": 14,
     "theme": {
         "mode": "dark",
