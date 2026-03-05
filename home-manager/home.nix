@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   envUser = builtins.getEnv "USER";
@@ -100,6 +100,14 @@ in
     cargo-edit # Add/remove/update Cargo dependencies from the CLI
     nil
     nixd
+  ] ++ lib.optionals pkgs.stdenv.isLinux [
+    xclip # clipboard support
+    docker # Container runtime
+    docker-compose # Multi-container orchestration
+    nerd-fonts.monaspace # Monaspace Nerd Font
+    nerd-fonts._0xproto # 0xProto Nerd Font
+    ngrok # Reverse proxy / tunnels to localhost
+    zed-editor # High-performance code editor
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -115,11 +123,6 @@ in
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    ".aerospace.toml" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/aerospace/.aerospace.toml";
-      force = true;
-    };
-
     # Keep Zed writable by linking the whole config dir out of the Nix store.
     ".config/zed" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/zed";
@@ -188,9 +191,6 @@ in
       ls = "eza --group-directories-first --color=auto";
       ll = "eza -lah --group-directories-first --color=auto";
 
-      idea = "open -na \"IntelliJ IDEA.app\" --args";
-      goland = "open -na \"GoLand.app\" --args";
-
       ga = "git add .";
       gp = "git push";
       gf = "git fetch --all --prune";
@@ -238,6 +238,13 @@ in
     enable = true;
     enableZshIntegration = true;
   };
+
+  # ── macOS-only ──────────────────────────────────────────────
+  home.file.".aerospace.toml" = lib.mkIf pkgs.stdenv.isDarwin {
+    source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/aerospace/.aerospace.toml";
+    force = true;
+  };
+
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
