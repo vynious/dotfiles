@@ -14,7 +14,7 @@ brew bundle --file "${ROOT_DIR}/brew/Brewfile"
 
 echo "==> Applying Home Manager config"
 HM_BACKUP_EXT="backup-$(date +%Y%m%d-%H%M%S)"
-HM_FLAKE_TARGET="${ROOT_DIR}/home-manager#default"
+HM_FLAKE_TARGET="${ROOT_DIR}/home-manager#aarch64-darwin"
 if command -v home-manager >/dev/null 2>&1; then
   home-manager switch --impure -b "${HM_BACKUP_EXT}" --flake "${HM_FLAKE_TARGET}"
 else
