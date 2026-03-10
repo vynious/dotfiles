@@ -32,7 +32,7 @@ default-root-container-layout = 'tiles'
 # Possible values: horizontal|vertical|auto
 # 'auto' means: wide monitor (anything wider than high) gets horizontal orientation,
 #               tall monitor (anything higher than wide) gets vertical orientation
-default-root-container-orientation = 'auto'
+default-root-container-orientation = 'horizontal'
 
 # Possible values: (qwerty|dvorak)
 # See https://nikitabobko.github.io/AeroSpace/guide#key-mapping
@@ -96,7 +96,7 @@ outer.right =      3
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-slash = 'layout tiles horizontal vertical'
-alt-comma = 'layout accordion horizontal vertical'
+alt-comma = 'layout floating tiling'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#focus
 alt-a = 'focus left'
@@ -147,14 +147,20 @@ alt-shift-b = 'move-node-to-workspace --focus-follows-window 📡'
 alt-shift-m = 'fullscreen'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-# alt-tab = 'workspace-back-and-forth'
+alt-tab = 'workspace-back-and-forth'
+# See: https://nikitabobko.github.io/AeroSpace/commands#focus-back-and-forth
+alt-shift-space = 'focus-back-and-forth'
+# See: https://nikitabobko.github.io/AeroSpace/commands#focus-monitor
+# Use ctrl+alt here to avoid stealing common Option+Arrow app shortcuts.
+ctrl-alt-left = 'focus-monitor left'
+ctrl-alt-right = 'focus-monitor right'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 alt-shift-semicolon = 'mode service'
 
-# alt-shift-r = 'mode resize'
+alt-shift-r = 'mode resize'
 alt-shift-minus = 'resize smart -50'
 alt-shift-equal = 'resize smart +50'
 
@@ -167,13 +173,13 @@ b = 'balance-sizes'
 
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-# minus = 'resize smart -50'
-# equal = 'resize smart +50'
+minus = 'resize smart -50'
+equal = 'resize smart +50'
 
 enter = 'mode main'
 esc = 'mode main'
 
-# 'service' binding mode declaration.
+# 'service' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
 esc = ['reload-config', 'mode main']
@@ -181,11 +187,21 @@ r = ['flatten-workspace-tree', 'mode main'] # reset layout
 #s = ['layout sticky tiling', 'mode main'] # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
 f = ['layout floating tiling', 'mode main'] # Toggle between floating and tiling layout
 backspace = ['close-all-windows-but-current', 'mode main']
+b = ['balance-sizes', 'mode main']
 
-alt-shift-a = ['join-with left', 'mode main']
-alt-shift-s = ['join-with down', 'mode main']
-alt-shift-w = ['join-with up', 'mode main']
-alt-shift-d = ['join-with right', 'mode main']
+alt-shift-a = 'join-with left'
+alt-shift-s = 'join-with down'
+alt-shift-w = 'join-with up'
+alt-shift-d = 'join-with right'
+
+# Uncomment and tailor when you want stable multi-monitor workspace placement.
+# Supported monitor patterns: 'main', 'secondary', 1-based monitor index,
+# or case-insensitive regex patterns matching the monitor name.
+# [workspace-to-monitor-force-assignment]
+#     Terminal = 'secondary'
+#     '⚙️' = 'main'
+#     '🎙️' = ['secondary', 'dell']
+#     '📡' = ['secondary', 'dell']
 
 
 # osascript -e 'id of app "Arc"'
@@ -261,5 +277,3 @@ alt-shift-d = ['join-with right', 'mode main']
 [[on-window-detected]]
 # No conditions here means it will catch any window that didn't match previous rules.
     run = "move-node-to-workspace 1"
-
-    
